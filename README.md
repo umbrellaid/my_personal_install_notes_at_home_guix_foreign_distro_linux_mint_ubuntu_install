@@ -1,0 +1,2 @@
+# my_personal_install_notes_at_home_guix_foreign_distro_linux_mint_ubuntu_install
+my personal install notes at home guix foreign distro linux mint ubuntu install
