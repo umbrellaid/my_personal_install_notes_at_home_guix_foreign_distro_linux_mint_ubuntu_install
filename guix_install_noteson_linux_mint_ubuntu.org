@@ -42,7 +42,7 @@
 - https://guix.gnu.org/manual/en/guix.html
 ** install and configure
 *** run install script
-#+BEGIN_VERBATIM
+#+BEGIN_EXAMPLE
 - https://guix.gnu.org/manual/en/html_node/Binary-Installation.html
 - must run script as sudo
 - restart computer
@@ -53,9 +53,9 @@
 - david@david-HP-Pavilion-Gaming-Laptop-15z-ec200:~$ hash guix
 - david@david-HP-Pavilion-Gaming-Laptop-15z-ec200:~$ which guix
 /home/david/.config/guix/current/bin/guix
-#+END_VERBATIM
+#+END_EXAMPLE
 *** application setup
-#+BEGIN_VERBATIM
+#+BEGIN_EXAMPLE
 - https://guix.gnu.org/manual/en/html_node/Application-Setup.html
 - guix install glibc-locales
 - sudo nano /root/.profile
@@ -64,7 +64,7 @@ export GUIX_LOCPATH=$HOME/.guix-profile/lib/locale
 - nano ~/.bashrc
 add:
 export GUIX_LOCPATH=$HOME/.guix-profile/lib/locale
-#+END_VERBATIM
+#+END_EXAMPLE
 **** Name Service Switch
 ***** I asked AI How to Install, here is the Answer they gave me:
 #+BEGIN_SRC markdown
@@ -188,7 +188,7 @@ By installing and running `nscd`, you ensure that name lookups from Guix-install
 Let me know if you hit any snags or need further assistance!
 #+END_SRC
 **** X11 Fonts
-#+BEGIN_VERBATIM
+#+BEGIN_EXAMPLE
 guix install fontconfig
 hint: Consider setting the necessary environment variables by running:
 
@@ -202,9 +202,9 @@ GUIX_PROFILE="/home/david/.guix-profile"
 . "$GUIX_PROFILE/etc/profile"
 guix install font-ghostscript font-dejavu font-gnu-freefont
 fc-cache -rv
-#+END_VERBATIM
+#+END_EXAMPLE
 **** X.509 Certificates
-#+BEGIN_VERBATIM
+#+BEGIN_EXAMPLE
 https://guix.gnu.org/manual/en/html_node/X_002e509-Certificates.html
 guix install nss-certs
 
@@ -213,9 +213,9 @@ add:
 export SSL_CERT_DIR="$HOME/.guix-profile/etc/ssl/certs"
 export SSL_CERT_FILE="$HOME/.guix-profile/etc/ssl/certs/ca-certificates.crt"
 export GIT_SSL_CAINFO="$SSL_CERT_FILE"
-#+END_VERBATIM
+#+END_EXAMPLE
 ** Install Emacs
-#+BEGIN_VERBATIM
+#+BEGIN_EXAMPLE
 guix install emacs
 hint: Consider setting the necessary environment variables by running:
 GUIX_PROFILE="/home/david/.guix-profile"
@@ -232,15 +232,15 @@ nano ~/.bashrc
 add:
 export GTK_PATH=/usr/lib/x86_64-linux-gnu/gtk-3.0/modules
 Does not work, decided not to fix right now because I do not believe that this actually matters. Removed line that was added.
-#+END_VERBATIM
+#+END_EXAMPLE
 ** Setup emacs configuration
-#+BEGIN_VERBATIM
+#+BEGIN_EXAMPLE
 mkdir -p ~/.emacs.d
 echo '(message "Init loaded from ~/.emacs.d/init.el")' > ~/.emacs.d/init.el
 emacs
-#+END_VERBATIM
+#+END_EXAMPLE
 ** github cli gh command
-#+BEGIN_VERBATIM
+#+BEGIN_EXAMPLE
 I installed directly to Linux Mint - followed script / instructions on github website
 sudo apt update
 sudo apt install gh
@@ -253,28 +253,28 @@ nano ~/.gitconfig
 git config --global user.name "David R Rrrrr"
 git config --global user.email "david.rrrrrr@yandex.com"
 git config --global core.editor "nano"
-#+END_VERBATIM
+#+END_EXAMPLE
 ** openssh server
-#+BEGIN_VERBATIM
+#+BEGIN_EXAMPLE
 I installed directly to Linux Mint
 sudo apt-get install openssh-server
-#+END_VERBATIM
+#+END_EXAMPLE
 ** isync mu notmuch
-#+BEGIN_VERBATIM
+#+BEGIN_EXAMPLE
 guix install isync mu notmuch
 mu init --maildir=/media/david/myINTERNAL/99d25f34-a775-4723-b0b7-f7afd58db67b/myINTERNAL/Maildir/ --my-address=dr@gmail.com --my-address=dr@icloud.com --my-address=de@r.i --my-address=d.r@v
 mu index
 notmuch setup
 notmuch new
 mbsync -aV
-#+END_VERBATIM
+#+END_EXAMPLE
 ** install font aporetic
-#+BEGIN_VERBATIM
+#+BEGIN_EXAMPLE
 guix install font-aporetic
 fc-cache -rv
 fc-list | grep "Aporetic"
-#+END_VERBATIM
+#+END_EXAMPLE
 ** emacs package notmuch install
-#+BEGIN_VERBATIM
+#+BEGIN_EXAMPLE
 guix install emacs-notmuch
-#+END_VERBATIM
+#+END_EXAMPLE
