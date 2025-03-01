@@ -23,6 +23,7 @@
   - [[#isync-mu-notmuch][isync mu notmuch]]
   - [[#install-font-aporetic][install font aporetic]]
   - [[#emacs-package-notmuch-install][emacs package notmuch install]]
+  - [[#install-guile-programming-language][install guile programming language]]
 :END:
 
 ** references
@@ -277,4 +278,48 @@ fc-list | grep "Aporetic"
 ** emacs package notmuch install
 #+BEGIN_EXAMPLE
 guix install emacs-notmuch
+#+END_EXAMPLE
+** install guile programming language
+#+BEGIN_EXAMPLE
+guix install guile
+avid@david-HP-Pavilion-Gaming-Laptop-15z-ec200:~$ guix install guile
+guix install: warning: Your Guix installation is 8 days old.
+guix install: warning: Consider running 'guix pull' followed by
+'guix package -u' to get up-to-date packages and security updates.
+
+The following package will be installed:
+   guile 3.0.9
+
+The following derivation will be built:
+  /gnu/store/52wh419yhlak2r23idnki5jifqh4ir6j-profile.drv
+
+applying 3 grafts for libgc-8.2.4 ...
+applying 3 grafts for libunistring-1.1 ...
+building CA certificate bundle...
+listing Emacs sub-directories...
+building fonts directory...
+generating GdkPixbuf loaders cache...
+generating GLib schema cache...
+creating GTK+ icon theme cache...
+building cache files for GTK+ input methods...
+building directory of Info manuals...
+building XDG desktop file cache...
+building XDG MIME database...
+building profile with 15 packages...
+hint: Consider setting the necessary environment variables by running:
+
+     GUIX_PROFILE="/home/david/.guix-profile"
+     . "$GUIX_PROFILE/etc/profile"
+
+Alternately, see `guix package --search-paths -p "/home/david/.guix-profile"'.
+
+david@david-HP-Pavilion-Gaming-Laptop-15z-ec200:~$ guix package --search-paths -p "/home/david/.guix-profile"
+export PATH="/home/david/.guix-profile/bin"
+export GUILE_LOAD_PATH="/home/david/.guix-profile/share/guile/site/3.0"
+export GUILE_LOAD_COMPILED_PATH="/home/david/.guix-profile/share/guile/site/3.0"
+export DICPATH="/home/david/.guix-profile/share/hunspell"
+export EMACSLOADPATH="/home/david/.guix-profile/share/emacs/site-lisp"
+export INFOPATH="/home/david/.guix-profile/share/info"
+export XDG_DATA_DIRS="/home/david/.guix-profile/share"
+david@david-HP-Pavilion-Gaming-Laptop-15z-ec200:~$ 
 #+END_EXAMPLE
