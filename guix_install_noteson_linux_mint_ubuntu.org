@@ -1,25 +1,42 @@
 * Installing GNU Guix on a foreign system - linux mint (ubuntu)
 ** Table of Contents
-:PROPERTIES: :TOC: :include all :END:
+:PROPERTIES:
+:TOC: :include all
+:END:
 :CONTENTS:
-
+- [[#installing-gnu-guix-on-a-foreign-system---linux-mint-ubuntu][Installing GNU Guix on a foreign system - linux mint (ubuntu)]]
+  - [[#table-of-contents][Table of Contents]]
+  - [[#references][references]]
+    - [[#system-crafters][System Crafters]]
+    - [[#gnu-reference-manual][Gnu Reference Manual]]
+  - [[#install-and-configure][install and configure]]
+    - [[#run-install-script][run install script]]
+    - [[#application-setup][application setup]]
+      - [[#name-service-switch][Name Service Switch]]
+        - [[#i-asked-ai-how-to-install-here-is-the-answer-they-gave-me][I asked AI How to Install, here is the Answer they gave me:]]
+      - [[#x11-fonts][X11 Fonts]]
+      - [[#x509-certificates][X.509 Certificates]]
+  - [[#install-emacs][Install Emacs]]
+  - [[#setup-emacs-configuration][Setup emacs configuration]]
+  - [[#github-cli-gh-command][github cli gh command]]
+  - [[#openssh-server][openssh server]]
+  - [[#isync-mu-notmuch][isync mu notmuch]]
+  - [[#install-font-aporetic][install font aporetic]]
+  - [[#emacs-package-notmuch-install][emacs package notmuch install]]
+  - [[#install-guile-programming-language][install guile programming language]]
 :END:
 
 ** references
 *** System Crafters
 - https://systemcrafters.net/craft-your-system-with-guix/
 - https://systemcrafters.net/craft-your-system-with-guix/introduction
--
-  https://systemcrafters.net/craft-your-system-with-guix/installing-the-package-manager
--
-  https://systemcrafters.net/craft-your-system-with-guix/everyday-package-management
+- https://systemcrafters.net/craft-your-system-with-guix/installing-the-package-manager
+- https://systemcrafters.net/craft-your-system-with-guix/everyday-package-management
 - https://systemcrafters.net/craft-your-system-with-guix/using-package-channels
 - https://systemcrafters.net/craft-your-system-with-guix/full-system-install
 - https://systemcrafters.net/craft-your-system-with-guix/5-reasons-to-try-guix
--
-  https://systemcrafters.net/craft-your-system-with-guix/how-to-organize-your-config
--
-  https://systemcrafters.net/craft-your-system-with-guix/guix-home-getting-started
+- https://systemcrafters.net/craft-your-system-with-guix/how-to-organize-your-config
+- https://systemcrafters.net/craft-your-system-with-guix/guix-home-getting-started
 *** Gnu Reference Manual
 - https://guix.gnu.org/manual/
 - https://guix.gnu.org/manual/en/
