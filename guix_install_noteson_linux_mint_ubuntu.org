@@ -68,7 +68,7 @@ export GUIX_LOCPATH=$HOME/.guix-profile/lib/locale
 #+END_EXAMPLE
 **** Name Service Switch
 ***** I asked AI How to Install, here is the Answer they gave me:
-#+BEGIN_SRC markdown
+#+begin_example
 You’re setting up GNU Guix on Linux Mint (which is based on Ubuntu), and you want to install and configure the **Name Service Cache Daemon (nscd)** as recommended in the Guix documentation (Section 2.6.2) to ensure proper name lookups for host names and user accounts. Below, I’ll guide you through the process of installing and enabling `nscd` on Linux Mint, tailored to your context.
 
 ---
@@ -187,7 +187,7 @@ The default configuration file for `nscd` is `/etc/nscd.conf`. Normally, you don
 By installing and running `nscd`, you ensure that name lookups from Guix-installed applications are handled by the system’s `nscd` process, which loads NSS plugins in its own context. This avoids the glibc incompatibility issue described in the Guix docs, ensuring smooth operation on Linux Mint.
 
 Let me know if you hit any snags or need further assistance!
-#+END_SRC
+#+END_EXAMPLE
 **** X11 Fonts
 #+BEGIN_EXAMPLE
 guix install fontconfig
