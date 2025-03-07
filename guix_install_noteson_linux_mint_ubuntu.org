@@ -1,42 +1,25 @@
 * Installing GNU Guix on a foreign system - linux mint (ubuntu)
 ** Table of Contents
-:PROPERTIES:
-:TOC:      :include all
-:END:
+:PROPERTIES: :TOC: :include all :END:
 :CONTENTS:
-- [[#installing-gnu-guix-on-a-foreign-system---linux-mint-ubuntu][Installing GNU Guix on a foreign system - linux mint (ubuntu)]]
-  - [[#table-of-contents][Table of Contents]]
-  - [[#references][references]]
-    - [[#system-crafters][System Crafters]]
-    - [[#gnu-reference-manual][Gnu Reference Manual]]
-  - [[#install-and-configure][install and configure]]
-    - [[#run-install-script][run install script]]
-    - [[#application-setup][application setup]]
-      - [[#name-service-switch][Name Service Switch]]
-        - [[#i-asked-ai-how-to-install-here-is-the-answer-they-gave-me][I asked AI How to Install, here is the Answer they gave me:]]
-      - [[#x11-fonts][X11 Fonts]]
-      - [[#x509-certificates][X.509 Certificates]]
-  - [[#install-emacs][Install Emacs]]
-  - [[#setup-emacs-configuration][Setup emacs configuration]]
-  - [[#github-cli-gh-command][github cli gh command]]
-  - [[#openssh-server][openssh server]]
-  - [[#isync-mu-notmuch][isync mu notmuch]]
-  - [[#install-font-aporetic][install font aporetic]]
-  - [[#emacs-package-notmuch-install][emacs package notmuch install]]
-  - [[#install-guile-programming-language][install guile programming language]]
+
 :END:
 
 ** references
 *** System Crafters
 - https://systemcrafters.net/craft-your-system-with-guix/
 - https://systemcrafters.net/craft-your-system-with-guix/introduction
-- https://systemcrafters.net/craft-your-system-with-guix/installing-the-package-manager
-- https://systemcrafters.net/craft-your-system-with-guix/everyday-package-management
+-
+  https://systemcrafters.net/craft-your-system-with-guix/installing-the-package-manager
+-
+  https://systemcrafters.net/craft-your-system-with-guix/everyday-package-management
 - https://systemcrafters.net/craft-your-system-with-guix/using-package-channels
 - https://systemcrafters.net/craft-your-system-with-guix/full-system-install
 - https://systemcrafters.net/craft-your-system-with-guix/5-reasons-to-try-guix
-- https://systemcrafters.net/craft-your-system-with-guix/how-to-organize-your-config
-- https://systemcrafters.net/craft-your-system-with-guix/guix-home-getting-started
+-
+  https://systemcrafters.net/craft-your-system-with-guix/how-to-organize-your-config
+-
+  https://systemcrafters.net/craft-your-system-with-guix/guix-home-getting-started
 *** Gnu Reference Manual
 - https://guix.gnu.org/manual/
 - https://guix.gnu.org/manual/en/
@@ -44,236 +27,181 @@
 ** install and configure
 *** run install script
 #+BEGIN_EXAMPLE
-- https://guix.gnu.org/manual/en/html_node/Binary-Installation.html
-- must run script as sudo
-- restart computer
-- guix install: warning: Consider running 'guix pull' followed by
-- 'guix package -u' to get up-to-date packages and security updates.
-- hint: After setting `PATH', run `hash guix' to make sure your shell refers to
-`/home/david/.config/guix/current/bin/guix'.
-- david@david-HP-Pavilion-Gaming-Laptop-15z-ec200:~$ hash guix
-- david@david-HP-Pavilion-Gaming-Laptop-15z-ec200:~$ which guix
+- https://guix.gnu.org/manual/en/html_node/Binary-Installation.html - must run
+script as sudo - restart computer - guix install: warning: Consider running
+'guix pull' followed by - 'guix package -u' to get up-to-date packages and
+security updates. - hint: After setting `PATH', run `hash guix' to make sure
+your shell refers to `/home/david/.config/guix/current/bin/guix'. -
+david@david-HP-Pavilion-Gaming-Laptop-15z-ec200:~$ hash guix -
+david@david-HP-Pavilion-Gaming-Laptop-15z-ec200:~$ which guix
 /home/david/.config/guix/current/bin/guix
 #+END_EXAMPLE
 *** application setup
 #+BEGIN_EXAMPLE
-- https://guix.gnu.org/manual/en/html_node/Application-Setup.html
-- guix install glibc-locales
-- sudo nano /root/.profile
-add:
-export GUIX_LOCPATH=$HOME/.guix-profile/lib/locale
-- nano ~/.bashrc
-add:
-export GUIX_LOCPATH=$HOME/.guix-profile/lib/locale
+- https://guix.gnu.org/manual/en/html_node/Application-Setup.html - guix install
+glibc-locales - sudo nano /root/.profile add: export
+GUIX_LOCPATH=$HOME/.guix-profile/lib/locale - nano ~/.bashrc add: export
+GUIX_LOCPATH=$HOME/.guix-profile/lib/locale
 #+END_EXAMPLE
 **** Name Service Switch
 ***** I asked AI How to Install, here is the Answer they gave me:
 #+begin_example
-You’re setting up GNU Guix on Linux Mint (which is based on Ubuntu), and you want to install and configure the **Name Service Cache Daemon (nscd)** as recommended in the Guix documentation (Section 2.6.2) to ensure proper name lookups for host names and user accounts. Below, I’ll guide you through the process of installing and enabling `nscd` on Linux Mint, tailored to your context.
+You’re setting up GNU Guix on Linux Mint (which is based on Ubuntu), and you
+want to install and configure the **Name Service Cache Daemon (nscd)** as
+recommended in the Guix documentation (Section 2.6.2) to ensure proper name
+lookups for host names and user accounts. Below, I’ll guide you through the
+process of installing and enabling `nscd` on Linux Mint, tailored to your
+context.
 
 ---
 
-### Why Install `nscd`?
-As explained in the Guix documentation, when using Guix on a foreign distro like Linux Mint, `nscd` is strongly recommended. Without it, applications installed via Guix might fail to resolve host names or user accounts due to potential incompatibilities between Guix’s GNU C library (glibc) and the host system’s NSS plugins. Running `nscd` ensures that name lookups are handled centrally by the daemon, avoiding these issues.
+### Why Install `nscd`? As explained in the Guix documentation, when using Guix
+on a foreign distro like Linux Mint, `nscd` is strongly recommended. Without it,
+applications installed via Guix might fail to resolve host names or user
+accounts due to potential incompatibilities between Guix’s GNU C library (glibc)
+and the host system’s NSS plugins. Running `nscd` ensures that name lookups are
+handled centrally by the daemon, avoiding these issues.
 
 ---
 
 ### Step-by-Step Instructions to Install `nscd` on Linux Mint
 
-Since Linux Mint is based on Ubuntu, you can install `nscd` using the `apt` package manager, which is the standard tool for managing system packages on Debian-based systems like Mint.
+Since Linux Mint is based on Ubuntu, you can install `nscd` using the `apt`
+package manager, which is the standard tool for managing system packages on
+Debian-based systems like Mint.
 
-#### 1. Update the Package List
-First, ensure your package list is up to date to avoid installation issues:
-```
-sudo apt update
-```
+#### 1. Update the Package List First, ensure your package list is up to date to
+avoid installation issues: ``` sudo apt update ```
 
-#### 2. Install `nscd`
-Install the `nscd` package by running:
-```
-sudo apt install nscd
-```
-- This command downloads and installs the Name Service Cache Daemon along with its default configuration files.
-- On Linux Mint (and Ubuntu), `nscd` is part of the `libc-bin` package or available as a standalone package, depending on the version. The above command ensures it’s installed regardless.
+#### 2. Install `nscd` Install the `nscd` package by running: ``` sudo apt
+install nscd ``` - This command downloads and installs the Name Service Cache
+Daemon along with its default configuration files. - On Linux Mint (and Ubuntu),
+`nscd` is part of the `libc-bin` package or available as a standalone package,
+depending on the version. The above command ensures it’s installed regardless.
 
-#### 3. Verify Installation
-After installation, check that `nscd` is installed and running:
-```
-systemctl status nscd
-```
-- You should see output indicating whether the service is active. For example:
-  ```
-  ● nscd.service - Name Service Cache Daemon
-  Loaded: loaded (/lib/systemd/system/nscd.service; enabled; vendor preset: enabled)
-  Active: active (running) since ...
-  ```
-- If it’s not running (e.g., `inactive` or `failed`), proceed to the next step to start and enable it.
+#### 3. Verify Installation After installation, check that `nscd` is installed
+and running: ``` systemctl status nscd ``` - You should see output indicating
+whether the service is active. For example: ``` ● nscd.service - Name Service
+Cache Daemon Loaded: loaded (/lib/systemd/system/nscd.service; enabled; vendor
+preset: enabled) Active: active (running) since ... ``` - If it’s not running
+(e.g., `inactive` or `failed`), proceed to the next step to start and enable it.
 
-#### 4. Start and Enable `nscd`
-If `nscd` isn’t already running, start it manually:
-```
-sudo systemctl start nscd
-```
-To ensure it starts automatically on boot:
-```
-sudo systemctl enable nscd
-```
-- The `enable` command links the service to the appropriate runlevels so it persists across reboots.
+#### 4. Start and Enable `nscd` If `nscd` isn’t already running, start it
+manually: ``` sudo systemctl start nscd ``` To ensure it starts automatically on
+boot: ``` sudo systemctl enable nscd ``` - The `enable` command links the
+service to the appropriate runlevels so it persists across reboots.
 
-#### 5. Check the `nscd` Socket
-The Guix documentation specifies that `nscd` should be listening on `/var/run/nscd/socket`. Verify this by checking if the socket exists after starting the service:
-```
-ls /var/run/nscd/socket
-```
-- If the file exists, `nscd` is running and listening as expected. If not, there may be a configuration issue (see troubleshooting below).
+#### 5. Check the `nscd` Socket The Guix documentation specifies that `nscd`
+should be listening on `/var/run/nscd/socket`. Verify this by checking if the
+socket exists after starting the service: ``` ls /var/run/nscd/socket ``` - If
+the file exists, `nscd` is running and listening as expected. If not, there may
+be a configuration issue (see troubleshooting below).
 
-#### 6. Test Name Lookups
-To confirm that `nscd` is working, test a basic name lookup:
-```
-getent hosts localhost
-```
-- Expected output: `127.0.0.1   localhost`
-- This command queries the NSS system, and with `nscd` running, it should use the daemon’s cache.
+#### 6. Test Name Lookups To confirm that `nscd` is working, test a basic name
+lookup: ``` getent hosts localhost ``` - Expected output: `127.0.0.1
+localhost` - This command queries the NSS system, and with `nscd` running, it
+should use the daemon’s cache.
 
 ---
 
-### Configuration (Optional)
-The default configuration file for `nscd` is `/etc/nscd.conf`. Normally, you don’t need to edit it for basic Guix usage, as the defaults are sufficient. However, if you encounter issues or want to tweak caching behavior:
-- Open the file with a text editor:
-  ```
-  sudo nano /etc/nscd.conf
-  ```
-- Example settings (uncommented lines are active):
-  ```
-  enable-cache    passwd    yes
-  enable-cache    group     yes
-  enable-cache    hosts     yes
-  positive-time-to-live  hosts  3600
-  negative-time-to-live  hosts  20
-  ```
-- Save and restart `nscd` to apply changes:
-  ```
-  sudo systemctl restart nscd
-  ```
+### Configuration (Optional) The default configuration file for `nscd` is
+`/etc/nscd.conf`. Normally, you don’t need to edit it for basic Guix usage, as
+the defaults are sufficient. However, if you encounter issues or want to tweak
+caching behavior: - Open the file with a text editor: ``` sudo nano
+/etc/nscd.conf ``` - Example settings (uncommented lines are active): ```
+enable-cache passwd yes enable-cache group yes enable-cache hosts yes
+positive-time-to-live hosts 3600 negative-time-to-live hosts 20 ``` - Save and
+restart `nscd` to apply changes: ``` sudo systemctl restart nscd ```
 
 ---
 
-### Troubleshooting
-- **Socket Not Found (`/var/run/nscd/socket` missing):**
-  - Ensure `nscd` is running (`sudo systemctl status nscd`).
-  - Restart it: `sudo systemctl restart nscd`.
-  - Check for errors in the logs: `journalctl -u nscd`.
+### Troubleshooting - **Socket Not Found (`/var/run/nscd/socket` missing):** -
+Ensure `nscd` is running (`sudo systemctl status nscd`). - Restart it: `sudo
+systemctl restart nscd`. - Check for errors in the logs: `journalctl -u nscd`.
 
-- **Service Fails to Start:**
-  - View detailed logs: `journalctl -xe` or `systemctl status nscd`.
-  - Common issues include misconfiguration in `/etc/nscd.conf` or conflicts with other NSS services. Reinstall if needed:
-    ```
-    sudo apt purge nscd
-    sudo apt install nscd
-    ```
+- **Service Fails to Start:** - View detailed logs: `journalctl -xe` or
+`systemctl status nscd`. - Common issues include misconfiguration in
+`/etc/nscd.conf` or conflicts with other NSS services. Reinstall if needed: ```
+sudo apt purge nscd sudo apt install nscd ```
 
-- **Name Lookups Still Fail:**
-  - Verify your `/etc/nsswitch.conf` is correctly configured. It should look something like:
-    ```
-    passwd:     files
-    group:      files
-    hosts:      files dns
-    ```
-  - Ensure no conflicting services (e.g., `systemd-resolved`) interfere. If needed, disable others and rely on `nscd`.
+- **Name Lookups Still Fail:** - Verify your `/etc/nsswitch.conf` is correctly
+configured. It should look something like: ``` passwd: files group: files hosts:
+files dns ``` - Ensure no conflicting services (e.g., `systemd-resolved`)
+interfere. If needed, disable others and rely on `nscd`.
 
 ---
 
-### Why This Works for Guix
-By installing and running `nscd`, you ensure that name lookups from Guix-installed applications are handled by the system’s `nscd` process, which loads NSS plugins in its own context. This avoids the glibc incompatibility issue described in the Guix docs, ensuring smooth operation on Linux Mint.
+### Why This Works for Guix By installing and running `nscd`, you ensure that
+name lookups from Guix-installed applications are handled by the system’s `nscd`
+process, which loads NSS plugins in its own context. This avoids the glibc
+incompatibility issue described in the Guix docs, ensuring smooth operation on
+Linux Mint.
 
 Let me know if you hit any snags or need further assistance!
 #+END_EXAMPLE
 **** X11 Fonts
 #+BEGIN_EXAMPLE
-guix install fontconfig
-hint: Consider setting the necessary environment variables by running:
+guix install fontconfig hint: Consider setting the necessary environment
+variables by running:
 
-GUIX_PROFILE="/home/david/.guix-profile"
-. "$GUIX_PROFILE/etc/profile"
+GUIX_PROFILE="/home/david/.guix-profile" . "$GUIX_PROFILE/etc/profile"
 
 Alternately, see `guix package --search-paths -p "/home/david/.guix-profile"'.
-nano .bashrc
-add:
-GUIX_PROFILE="/home/david/.guix-profile"
-. "$GUIX_PROFILE/etc/profile"
-guix install font-ghostscript font-dejavu font-gnu-freefont
-fc-cache -rv
+nano .bashrc add: GUIX_PROFILE="/home/david/.guix-profile" .
+"$GUIX_PROFILE/etc/profile" guix install font-ghostscript font-dejavu
+font-gnu-freefont fc-cache -rv
 #+END_EXAMPLE
 **** X.509 Certificates
 #+BEGIN_EXAMPLE
-https://guix.gnu.org/manual/en/html_node/X_002e509-Certificates.html
-guix install nss-certs
+https://guix.gnu.org/manual/en/html_node/X_002e509-Certificates.html guix
+install nss-certs
 
-nano ~/.bashrc
-add:
-export SSL_CERT_DIR="$HOME/.guix-profile/etc/ssl/certs"
+nano ~/.bashrc add: export SSL_CERT_DIR="$HOME/.guix-profile/etc/ssl/certs"
 export SSL_CERT_FILE="$HOME/.guix-profile/etc/ssl/certs/ca-certificates.crt"
 export GIT_SSL_CAINFO="$SSL_CERT_FILE"
 #+END_EXAMPLE
 ** Install Emacs
 #+BEGIN_EXAMPLE
-guix install emacs
-hint: Consider setting the necessary environment variables by running:
-GUIX_PROFILE="/home/david/.guix-profile"
-. "$GUIX_PROFILE/etc/profile"
+guix install emacs hint: Consider setting the necessary environment variables by
+running: GUIX_PROFILE="/home/david/.guix-profile" . "$GUIX_PROFILE/etc/profile"
 Alternately, see `guix package --search-paths -p "/home/david/.guix-profile"'.
 david@david-HP-Pavilion-Gaming-Laptop-15z-ec200:~$ echo $GUIX_PROFILE
-/home/david/.guix-profile
-david@david-HP-Pavilion-Gaming-Laptop-15z-ec200:~$ which emacs
-/home/david/.guix-profile/bin/emacs
-david@david-HP-Pavilion-Gaming-Laptop-15z-ec200:~$ emacs &
-[1] 7744
-david@david-HP-Pavilion-Gaming-Laptop-15z-ec200:~$ Gtk-Message: 19:43:19.393: Failed to load module "xapp-gtk3-module"
-nano ~/.bashrc
-add:
-export GTK_PATH=/usr/lib/x86_64-linux-gnu/gtk-3.0/modules
-Does not work, decided not to fix right now because I do not believe that this actually matters. Removed line that was added.
+/home/david/.guix-profile david@david-HP-Pavilion-Gaming-Laptop-15z-ec200:~$
+which emacs /home/david/.guix-profile/bin/emacs
+david@david-HP-Pavilion-Gaming-Laptop-15z-ec200:~$ emacs & [1] 7744
+david@david-HP-Pavilion-Gaming-Laptop-15z-ec200:~$ Gtk-Message: 19:43:19.393:
+Failed to load module "xapp-gtk3-module" nano ~/.bashrc add: export
+GTK_PATH=/usr/lib/x86_64-linux-gnu/gtk-3.0/modules Does not work, decided not to
+fix right now because I do not believe that this actually matters. Removed line
+that was added.
 #+END_EXAMPLE
 ** Setup emacs configuration
 #+BEGIN_EXAMPLE
-mkdir -p ~/.emacs.d
-echo '(message "Init loaded from ~/.emacs.d/init.el")' > ~/.emacs.d/init.el
-emacs
+mkdir -p ~/.emacs.d echo '(message "Init loaded from ~/.emacs.d/init.el")' >
+~/.emacs.d/init.el emacs
 #+END_EXAMPLE
 ** github cli gh command
 #+BEGIN_EXAMPLE
-I installed directly to Linux Mint - followed script / instructions on github website
-sudo apt update
-sudo apt install gh
-which gh
-gh auth
-gh auth login
-gh auth setup-git
-gh auth status
-nano ~/.gitconfig 
-git config --global user.name "David R Rrrrr"
-git config --global user.email "david.rrrrrr@yandex.com"
-git config --global core.editor "nano"
+I installed directly to Linux Mint - followed script / instructions on github
+website sudo apt update sudo apt install gh which gh gh auth gh auth login gh
+auth setup-git gh auth status nano ~/.gitconfig git config --global user.name
+"David R Rrrrr" git config --global user.email "david.rrrrrr@yandex.com" git
+config --global core.editor "nano"
 #+END_EXAMPLE
 ** openssh server
 #+BEGIN_EXAMPLE
-I installed directly to Linux Mint
-sudo apt-get install openssh-server
+I installed directly to Linux Mint sudo apt-get install openssh-server
 #+END_EXAMPLE
 ** isync mu notmuch
 #+BEGIN_EXAMPLE
-guix install isync mu notmuch
-mu init --maildir=/media/david/myINTERNAL/99d25f34-a775-4723-b0b7-f7afd58db67b/myINTERNAL/Maildir/ --my-address=dr@gmail.com --my-address=dr@icloud.com --my-address=de@r.i --my-address=d.r@v
-mu index
-notmuch setup
-notmuch new
-mbsync -aV
+guix install isync mu notmuch mu init
+--maildir=/media/david/myINTERNAL/99d25f34-a775-4723-b0b7-f7afd58db67b/myINTERNAL/Maildir/
+--my-address=dr@gmail.com --my-address=dr@icloud.com --my-address=de@r.i
+--my-address=d.r@v mu index notmuch setup notmuch new mbsync -aV
 #+END_EXAMPLE
 ** install font aporetic
 #+BEGIN_EXAMPLE
-guix install font-aporetic
-fc-cache -rv
-fc-list | grep "Aporetic"
+guix install font-aporetic fc-cache -rv fc-list | grep "Aporetic"
 #+END_EXAMPLE
 ** emacs package notmuch install
 #+BEGIN_EXAMPLE
@@ -281,45 +209,35 @@ guix install emacs-notmuch
 #+END_EXAMPLE
 ** install guile programming language
 #+BEGIN_EXAMPLE
-guix install guile
-avid@david-HP-Pavilion-Gaming-Laptop-15z-ec200:~$ guix install guile
-guix install: warning: Your Guix installation is 8 days old.
-guix install: warning: Consider running 'guix pull' followed by
-'guix package -u' to get up-to-date packages and security updates.
+guix install guile avid@david-HP-Pavilion-Gaming-Laptop-15z-ec200:~$ guix
+install guile guix install: warning: Your Guix installation is 8 days old. guix
+install: warning: Consider running 'guix pull' followed by 'guix package -u' to
+get up-to-date packages and security updates.
 
-The following package will be installed:
-   guile 3.0.9
+The following package will be installed: guile 3.0.9
 
 The following derivation will be built:
   /gnu/store/52wh419yhlak2r23idnki5jifqh4ir6j-profile.drv
 
-applying 3 grafts for libgc-8.2.4 ...
-applying 3 grafts for libunistring-1.1 ...
-building CA certificate bundle...
-listing Emacs sub-directories...
-building fonts directory...
-generating GdkPixbuf loaders cache...
-generating GLib schema cache...
-creating GTK+ icon theme cache...
-building cache files for GTK+ input methods...
-building directory of Info manuals...
-building XDG desktop file cache...
-building XDG MIME database...
-building profile with 15 packages...
+applying 3 grafts for libgc-8.2.4 ... applying 3 grafts for libunistring-1.1 ...
+building CA certificate bundle... listing Emacs sub-directories... building
+fonts directory... generating GdkPixbuf loaders cache... generating GLib schema
+cache... creating GTK+ icon theme cache... building cache files for GTK+ input
+methods... building directory of Info manuals... building XDG desktop file
+cache... building XDG MIME database... building profile with 15 packages...
 hint: Consider setting the necessary environment variables by running:
 
-     GUIX_PROFILE="/home/david/.guix-profile"
-     . "$GUIX_PROFILE/etc/profile"
+     GUIX_PROFILE="/home/david/.guix-profile" . "$GUIX_PROFILE/etc/profile"
 
 Alternately, see `guix package --search-paths -p "/home/david/.guix-profile"'.
 
-david@david-HP-Pavilion-Gaming-Laptop-15z-ec200:~$ guix package --search-paths -p "/home/david/.guix-profile"
-export PATH="/home/david/.guix-profile/bin"
-export GUILE_LOAD_PATH="/home/david/.guix-profile/share/guile/site/3.0"
-export GUILE_LOAD_COMPILED_PATH="/home/david/.guix-profile/share/guile/site/3.0"
-export DICPATH="/home/david/.guix-profile/share/hunspell"
-export EMACSLOADPATH="/home/david/.guix-profile/share/emacs/site-lisp"
-export INFOPATH="/home/david/.guix-profile/share/info"
-export XDG_DATA_DIRS="/home/david/.guix-profile/share"
-david@david-HP-Pavilion-Gaming-Laptop-15z-ec200:~$ 
+david@david-HP-Pavilion-Gaming-Laptop-15z-ec200:~$ guix package --search-paths
+-p "/home/david/.guix-profile" export PATH="/home/david/.guix-profile/bin"
+export GUILE_LOAD_PATH="/home/david/.guix-profile/share/guile/site/3.0" export
+GUILE_LOAD_COMPILED_PATH="/home/david/.guix-profile/share/guile/site/3.0" export
+DICPATH="/home/david/.guix-profile/share/hunspell" export
+EMACSLOADPATH="/home/david/.guix-profile/share/emacs/site-lisp" export
+INFOPATH="/home/david/.guix-profile/share/info" export
+XDG_DATA_DIRS="/home/david/.guix-profile/share"
+david@david-HP-Pavilion-Gaming-Laptop-15z-ec200:~$
 #+END_EXAMPLE
